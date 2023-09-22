@@ -411,6 +411,7 @@ class MyApp(MDApp):
     profile_info = None
 
     def build(self):
+        self.title = "VeriScan"
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "DeepPurple"
         sm = ScreenManager()
