@@ -4,6 +4,9 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.gridlayout import GridLayout
+from kivy.lang import Builder
+from kivymd.app import MDApp
 import tweepy
 import re
 
@@ -39,13 +42,19 @@ def get_user_details(username):
     except tweepy.TweepyException as e:
         return {'error': str(e)}
 
-class HomeScreen(Screen):
-    def __init__(self, **kwargs):
-        super(HomeScreen, self).__init__(**kwargs)
-        layout = BoxLayout(orientation='vertical')
-        label = Label(text="Select a Social Media Platform:")
+Builder.load_file("home.kv")
 
-        # Create buttons for different platforms
+class HomeScreen(Screen):
+    
+    pass
+    '''def __init__(self, **kwargs):
+        super(HomeScreen, self).__init__(**kwargs)  
+        boxlayout = BoxLayout(orientation='vertical', spacing=0,spac)
+        header = Label(text="Social Media Fake Profile Detection", font_size='24sp', bold=True, height=0)
+        label = Label(text="Select a Social Media Platform:", height=30)
+
+        layout = GridLayout(cols=2, spacing=10)
+
         twitter_button = Button(text="Twitter")
         twitter_button.bind(on_release=self.open_twitter_screen)
 
@@ -58,24 +67,26 @@ class HomeScreen(Screen):
         facebook_button = Button(text="Facebook")
         facebook_button.bind(on_release=self.open_facebook_screen)
 
-        layout.add_widget(label)
+        boxlayout.add_widget(header)
+        boxlayout.add_widget(label)
+        boxlayout.add_widget(layout)
         layout.add_widget(twitter_button)
         layout.add_widget(instagram_button)
         layout.add_widget(linkedin_button)
         layout.add_widget(facebook_button)
 
-        self.add_widget(layout)
+        self.add_widget(boxlayout)'''
 
-    def open_twitter_screen(self, instance):
+    def open_twitter_screen(self):
         self.manager.current = 'twitter'
 
-    def open_instagram_screen(self, instance):
+    def open_instagram_screen(self):
         self.manager.current = 'instagram'
 
-    def open_linkedin_screen(self, instance):
+    def open_linkedin_screen(self):
         self.manager.current = 'linkedin'
 
-    def open_facebook_screen(self, instance):
+    def open_facebook_screen(self):
         self.manager.current = 'facebook'
 
 class TwitterScreen(Screen):
@@ -369,12 +380,15 @@ class FacebookResult(Screen):
     def bckBtn(self, instance):
         self.manager.current = 'facebook'
 
-class MyApp(App):
+class MyApp(MDApp):
     profile_info = None
 
     def build(self):
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "DeepPurple"
         sm = ScreenManager()
-        sm.add_widget(HomeScreen(name='home'))
+        home_screen = HomeScreen(name= 'home')
+        sm.add_widget(home_screen)
 
         sm.add_widget(TwitterScreen(name='twitter'))
         sm.add_widget(TwitterResult(name='twitter_result'))
