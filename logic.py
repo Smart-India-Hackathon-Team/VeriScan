@@ -9,6 +9,9 @@ import re
 
 import config
 
+import instaloader
+import pandas as pd
+
 # Define your Twitter API credentials
 consumer_key = config.twitter_key
 consumer_secret = config.twitter_secret
@@ -18,6 +21,8 @@ access_token_secret = config.twitter_token_secret
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
+
+bot = instaloader.Instaloader() # instaloader initialization
 
 # Function to extract Twitter username from URL
 def extract_username_from_url(url):
@@ -169,24 +174,16 @@ class InstagramScreen(Screen):
         layout.add_widget(back_button)
         self.add_widget(layout)
 
+        self.username = None
+
     def get_profile_info(self, instance):
         instagram_url = self.text_input.text
         print(instagram_url)
         # Extract the Instagram username from the URL
-        username = extract_username_from_url(instagram_url)
-        if username:
-            user_details = get_user_details(username)
-            if user_details:
-                print(f"User Details: {user_details}")
-                # Set the profile_info property of the App
-                MyApp.profile_info = user_details
-                # Switch to the second screen
-                self.manager.current = 'instagram_result'
-            else:
-                print("Error: Failed to retrieve user details")
-        else:
-            print("Invalid Instagram URL")
-
+        pattern = r'https://www\.instagram\.com/([A-Za-z0-9_]+)'
+        match = re.search(pattern, instagram_url)
+        self.username = match.group(1)
+        self.manager.current = 'instagram_result'
 
     def bckBtn(self, instance):
         self.manager.current = 'home'
@@ -196,32 +193,40 @@ class InstagramResult(Screen):
         super(InstagramResult, self).__init__(**kwargs)
         layout = BoxLayout(orientation='vertical')
         self.result_label = Label(text="Instagram Profile Info")
+
+        detect_button = Button(text="Detect")
+        detect_button.bind(on_release=self.detect)
+
         back_button = Button(text="Back")
         back_button.bind(on_release=self.bckBtn)
+
         layout.add_widget(self.result_label)
+        layout.add_widget(detect_button)
         layout.add_widget(back_button)
+
         self.add_widget(layout)
 
     def on_pre_enter(self):
-        profile_info = App.get_running_app().profile_info
-        if profile_info:
-            # Extract and display important information
-            user_name = profile_info.get('name', '')
-            screen_name = profile_info.get('screen_name', '')
-            followers_count = profile_info.get('followers_count', 0)
-            friends_count = profile_info.get('friends_count', 0)
-            statuses_count = profile_info.get('statuses_count', 0)
+        instagram_screen = App.get_running_app().root.get_screen('instagram')  # Access InstagramScreen instance
+        username = instagram_screen.username
+        profile = instaloader.Profile.from_username(bot.context, username)
 
-            info_text = f"Name: {user_name}\n"
-            info_text += f"Username: {screen_name}\n"
-            info_text += f"Followers: {followers_count}\n"
-            info_text += f"Friends: {friends_count}\n"
-            info_text += f"Statuses: {statuses_count}\n"
+        if profile:
+            info_text = f"Name: {profile.username}\n"
+            info_text += f"Username: {profile.username}\n"
+            info_text += f"Followers: {profile.followers}\n"
+            info_text += f"Following: {profile.followees}\n"
+            info_text += f"Number of Posts: {profile.mediacount}\n"
+            info_text += f"Bio: {profile.biography}\n"
+            info_text += f"External Url: {profile.external_url}\n"
 
             self.result_label.text = info_text
 
     def bckBtn(self, instance):
         self.manager.current = 'instagram'
+
+    def detect(self, instance):
+        pass
 
 class LinkedInScreen(Screen):
     def __init__(self, **kwargs):
