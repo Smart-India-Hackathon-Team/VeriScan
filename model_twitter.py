@@ -47,14 +47,15 @@ class Model():
             bound = max(data["fake"][i])
             if bound == 0:
                 bound = 1
-            
-            X[len(data["real"])+i] = data["real"][i]/bound # Normalizing Data [0 <--> 1]
+            X[len(data["real"])+i] = data["real"][i]/bound 
             Y[len(data["real"])+i] = 1
 
         x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.24, random_state=42)
 
         model = RandomForestClassifier(n_estimators=20)
         model.fit(x_train, y_train)
+        score = model.score(x_test, y_test)
+        y_predicted = model.predict(x_test)
         return model
 
     def tpredict(self, username):
@@ -62,14 +63,12 @@ class Model():
         consumer_secret = 'fJe08TAApTbq9YOz6fc3VrE0O9hGK8h8fCNjSURmpoTiL0Tmv6'
         access_token = '1417469551390822405-mNq3MVxkatbkBYKQzfyrspIy1iFGB0'
         access_token_secret = 'XTR09LN3qPcdW35JIPNmz4mZ2IJgl1NpP3YeHQjKItZqW'
-
-
+        username = username.split('/')[-1]
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
 
         api = tweepy.API(auth)
 
-        #username = input("Enter the username: ")
         model = self.train_model()
         try:
             user = api.get_user(screen_name=username)
