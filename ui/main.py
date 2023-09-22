@@ -96,7 +96,7 @@ class TwitterScreen(Screen):
             print("Invalid Twitter URL")
 
 
-    def bckBtn(self, instance):
+    def bckBtn(self):
         self.manager.current = 'home'
 
 class Twitterresult(Screen):
@@ -122,10 +122,10 @@ class Twitterresult(Screen):
             self.ids.result_label.text = info_text
 
 
-    def bckBtn(self, instance):
+    def bckBtn(self):
         self.manager.current = 'twitter'
 
-    def detect(self, instance):
+    def detect(self):
         pass
 
 

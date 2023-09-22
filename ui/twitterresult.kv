@@ -7,6 +7,11 @@
                 pos: self.pos
                 size: self.size
 
+        MDIconButton:
+            icon: "arrow-left"  # You can change this to the icon you prefer
+            pos_hint: {"x": 0.02, "top": 0.98}  # Adjust the position for the home button
+            on_release: root.bckBtn()  # Switch to the 'home' screen when clicked
+
         MDLabel:
             text: "Profile Information"
             pos_hint:{"center_x":.5,"center_y":0.7}
