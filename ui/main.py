@@ -17,6 +17,8 @@ import config as config
 import instaloader
 import pandas as pd
 
+from model_twitter import Model
+
 # Define your Twitter API credentials
 consumer_key = config.twitter_key
 consumer_secret = config.twitter_secret
@@ -148,22 +150,33 @@ class Twitterdetect(Screen):
 
     # DUMMY DATA - Have to replace it with ML Model
     def on_pre_enter(self):
+
+        model_instance = Model()
         profile_info = App.get_running_app().profile_info
-        if profile_info:
-            # Extract and display important information
-            user_name = profile_info.get('name', '')
-            screen_name = profile_info.get('screen_name', '')
-            followers_count = profile_info.get('followers_count', 0)
-            friends_count = profile_info.get('friends_count', 0)
-            statuses_count = profile_info.get('statuses_count', 0)
+        username = profile_info.get('screen_name', '')
+        prediction = model_instance.tpredict(username)
 
-            info_text = f"Name: {user_name}\n"
-            info_text += f"Username: {screen_name}\n"
-            info_text += f"Followers: {followers_count}\n"
-            info_text += f"Friends: {friends_count}\n"
-            info_text += f"Statuses: {statuses_count}\n"
-
+        if prediction:
+            info_text = f"Prediction: {prediction}\n"
             self.result_label.text = info_text
+
+        # print(f"Prediction for {username}: {prediction}")
+
+        # if profile_info:
+        #     # Extract and display important information
+        #     user_name = profile_info.get('name', '')
+        #     screen_name = profile_info.get('screen_name', '')
+        #     followers_count = profile_info.get('followers_count', 0)
+        #     friends_count = profile_info.get('friends_count', 0)
+        #     statuses_count = profile_info.get('statuses_count', 0)
+
+        #     info_text = f"Name: {user_name}\n"
+        #     info_text += f"Username: {screen_name}\n"
+        #     info_text += f"Followers: {followers_count}\n"
+        #     info_text += f"Friends: {friends_count}\n"
+        #     info_text += f"Statuses: {statuses_count}\n"
+
+        #     self.result_label.text = info_text
 
     def bckBtn(self, instance):
         self.manager.current = 'twitter_result'
