@@ -8,8 +8,8 @@ import tweepy
 class Model():
     def train_model(self):
         data = {}
-        data['fake'] = pd.read_csv('Datasets/fake_users.csv')
-        data['real'] = pd.read_csv("Datasets/real_users.csv")
+        data['fake'] = pd.read_csv('Datasets/twitter_fake_users.csv')
+        data['real'] = pd.read_csv("Datasets/twitter_real_users.csv")
 
         data['fake'] = data['fake'].drop(["id", "name", "screen_name", "created_at", "lang", "location", "default_profile", "default_profile_image", "geo_enabled", "profile_banner_url", "profile_use_background_image", "profile_background_image_url_https", "profile_text_color", "profile_image_url_https", "profile_sidebar_border_color", "profile_background_tile", "profile_sidebar_fill_color", "profile_background_image_url", "profile_background_color", "profile_link_color", "utc_offset", "dataset", "updated", "description", "profile_image_url", "url"], axis=1)
 
