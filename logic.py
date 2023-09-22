@@ -116,10 +116,17 @@ class TwitterResult(Screen):
         super(TwitterResult, self).__init__(**kwargs)
         layout = BoxLayout(orientation='vertical')
         self.result_label = Label(text="Twitter Profile Info Will Be Shown Here")
+
+        detect_button = Button(text="Detect")
+        detect_button.bind(on_release=self.detect)
+
         back_button = Button(text="Back")
         back_button.bind(on_release=self.bckBtn)
+
         layout.add_widget(self.result_label)
         layout.add_widget(back_button)
+        layout.add_widget(detect_button)
+
         self.add_widget(layout)
 
     def on_pre_enter(self):
@@ -143,6 +150,8 @@ class TwitterResult(Screen):
     def bckBtn(self, instance):
         self.manager.current = 'twitter'
 
+    def detect(self, instance):
+        pass
 
 class InstagramScreen(Screen):
     def __init__(self, **kwargs):
