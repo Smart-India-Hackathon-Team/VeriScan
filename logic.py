@@ -156,7 +156,45 @@ class TwitterResult(Screen):
         self.manager.current = 'twitter'
 
     def detect(self, instance):
-        pass
+        self.manager.current = 'twitter_detect'
+
+
+class TwitterDetect(Screen):
+    def __init__(self, **kwargs):
+        super(TwitterDetect, self).__init__(**kwargs)
+        layout = BoxLayout(orientation='vertical')
+        self.result_label = Label(text="Result")
+
+        back_button = Button(text="Back")
+        back_button.bind(on_release=self.bckBtn)
+
+        layout.add_widget(self.result_label)
+        layout.add_widget(back_button)
+
+        self.add_widget(layout)
+
+    def on_pre_enter(self):
+        profile_info = App.get_running_app().profile_info
+        if profile_info:
+            # Extract and display important information
+            user_name = profile_info.get('name', '')
+            screen_name = profile_info.get('screen_name', '')
+            followers_count = profile_info.get('followers_count', 0)
+            friends_count = profile_info.get('friends_count', 0)
+            statuses_count = profile_info.get('statuses_count', 0)
+
+            info_text = f"RESULT"
+            info_text = f"Name: {user_name}\n"
+            info_text += f"Username: {screen_name}\n"
+            info_text += f"Followers: {followers_count}\n"
+            info_text += f"Friends: {friends_count}\n"
+            info_text += f"Statuses: {statuses_count}\n"
+
+            self.result_label.text = info_text
+
+    def bckBtn(self, instance):
+        self.manager.current = 'twitter_result'
+
 
 class InstagramScreen(Screen):
     def __init__(self, **kwargs):
@@ -378,6 +416,7 @@ class MyApp(App):
 
         sm.add_widget(TwitterScreen(name='twitter'))
         sm.add_widget(TwitterResult(name='twitter_result'))
+        sm.add_widget(TwitterDetect(name='twitter_detect'))
 
         sm.add_widget(InstagramScreen(name='instagram'))
         sm.add_widget(InstagramResult(name='instagram_result'))
