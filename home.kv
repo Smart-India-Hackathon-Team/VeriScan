@@ -1,0 +1,108 @@
+<HomeScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: 56/255, 40/255, 81/255, 1  # Dark Purple Background Color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        MDBoxLayout:
+            size_hint_y:.25
+            padding:dp(25)
+            MDBoxLayout:
+                orientation:'vertical'
+
+                MDLabel:
+                    text: "Social Media Fake Profile Detection"
+                    font_size: '24sp'
+                    bold: True
+                    spacing:dp(25)
+                MDBoxLayout:
+                    MDLabel:
+                        text: "Select a Social Media Platform:"
+                        font_size:'18sp'
+                        size_hint_y: None
+                        height: dp(48)  # Adjust height using dp
+
+        MDGridLayout:
+            size_hint_y:.75
+            cols: 2
+            padding:[dp(15),dp(15),dp(15),dp(35)]
+            spacing:dp(15)
+            MDCard:
+                on_release:root.open_twitter_screen()
+                padding: dp(15)
+                spacing: dp(15)
+                radius: dp(25)
+                ripple_behavior: True
+                orientation: 'vertical'
+                Image:
+                    source: 'assets/twitter.png'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    MDLabel:
+                        halign: "center"
+                        text: "Twitter"  # Display the text property here
+                        font_style: "H6"
+                        size_hint_y: None
+                        height: dp(48)  # Adjust height using dp
+
+
+            MDCard:
+                on_release:root.open_instagram_screen()
+                padding: dp(15)
+                spacing: dp(15)
+                radius: dp(25)
+                ripple_behavior: True
+                orientation: 'vertical'
+                Image:
+                    source: 'assets/instagram.png'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    MDLabel:
+                        halign: "center"
+                        text: "Instagram"  # Display the text property here
+                        font_style: "H6"
+                        size_hint_y: None
+                        height: dp(48)  # Adjust height using dp
+
+                    
+            
+            MDCard:
+                on_release:root.open_facebook_screen()
+                padding: dp(15)
+                spacing: dp(15)
+                radius: dp(25)
+                ripple_behavior: True
+                orientation: 'vertical'
+                Image:
+                    source: 'assets/facebook.png'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    MDLabel:
+                        halign: "center"
+                        text: "Facebook"  # Display the text property here
+                        font_style: "H6"
+                        size_hint_y: None
+                        height: dp(48)  # Adjust height using dp
+
+
+
+            MDCard:
+                on_release:root.open_linkedin_screen()
+                padding: dp(15)
+                spacing: dp(15)
+                radius: dp(25)
+                ripple_behavior: True
+                orientation: 'vertical'
+                Image:
+                    source: 'assets/linkedin.png'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    MDLabel:
+                        halign: "center"
+                        text: "Linkedin"  # Display the text property here
+                        font_style: "H6"
+                        size_hint_y: None
+                        height: dp(48)  # Adjust height using dp
