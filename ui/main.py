@@ -126,8 +126,62 @@ class Twitterresult(Screen):
         self.manager.current = 'twitter'
 
     def detect(self):
-        pass
+        self.manager.current = 'twitter_detect'
 
+class Twitterdetect(Screen):
+    def __init__(self, **kwargs):
+        super(Twitterdetect, self).__init__(**kwargs)
+        layout = BoxLayout(orientation='vertical')
+        self.result_label = Label(text="Result")
+
+        block_button = Button(text="Block", background_color=(1, 0, 0, 1))
+        block_button.bind(on_release=self.block)
+
+        back_button = Button(text="Back")
+        back_button.bind(on_release=self.bckBtn)
+
+        layout.add_widget(self.result_label)
+        layout.add_widget(block_button)
+        layout.add_widget(back_button)
+
+        self.add_widget(layout)
+
+    # DUMMY DATA - Have to replace it with ML Model
+    def on_pre_enter(self):
+        profile_info = App.get_running_app().profile_info
+        if profile_info:
+            # Extract and display important information
+            user_name = profile_info.get('name', '')
+            screen_name = profile_info.get('screen_name', '')
+            followers_count = profile_info.get('followers_count', 0)
+            friends_count = profile_info.get('friends_count', 0)
+            statuses_count = profile_info.get('statuses_count', 0)
+
+            info_text = f"Name: {user_name}\n"
+            info_text += f"Username: {screen_name}\n"
+            info_text += f"Followers: {followers_count}\n"
+            info_text += f"Friends: {friends_count}\n"
+            info_text += f"Statuses: {statuses_count}\n"
+
+            self.result_label.text = info_text
+
+    def bckBtn(self, instance):
+        self.manager.current = 'twitter_result'
+
+    def block(self, instance):
+        profile_info = App.get_running_app().profile_info
+        screen_name = profile_info.get('screen_name', '')
+        try:
+            # Get the user's ID using their screen name
+            user = api.get_user(screen_name=screen_name)  # Provide screen_name as a keyword argument
+            user_id = user.id_str
+
+            # Block the user by their user_id
+            api.create_block(user_id=user_id)  # Pass user_id as a keyword argument
+
+            print(f"User @{screen_name} has been blocked successfully.")
+        except tweepy.TweepyException as e:
+            print(f"Error blocking user @{screen_name}: {e.reason}")
 
 class InstagramScreen(Screen):
     def __init__(self, **kwargs):
@@ -352,8 +406,10 @@ class MyApp(MDApp):
 
         twitter = TwitterScreen(name='twitter')
         sm.add_widget(twitter)
-        
+
+        sm.add_widget(TwitterScreen(name='twitter'))
         sm.add_widget(Twitterresult(name='twitter_result'))
+        sm.add_widget(Twitterdetect(name='twitter_detect'))
 
         sm.add_widget(InstagramScreen(name='instagram'))
         sm.add_widget(InstagramResult(name='instagram_result'))
