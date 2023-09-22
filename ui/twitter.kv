@@ -7,6 +7,11 @@
                 pos: self.pos
                 size: self.size
 
+        MDIconButton:
+            icon: "home"  # You can change this to the icon you prefer
+            pos_hint: {"x": 0.02, "top": 0.98}  # Adjust the position for the home button
+            on_release: root.manager.current = 'home'  # Switch to the 'home' screen when clicked
+
         Image:
             size_hint_x:0.4
             source: "assets/twitter.png"
@@ -39,12 +44,11 @@
             height: dp(48)
             pos_hint: {"center_x": .5, "center_y": .3}
 
-            Button:
+            MDRaisedButton:
                 text: "Search"
                 text_color: 1, 1, 1, 1
                 font_size: "20sp"
                 size_hint: 1, 1
-                background_color: 0, 0, 0, 0  # Make the button's background transparent
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -52,5 +56,6 @@
                         size: self.size
                         pos: self.pos
                         radius: [15, 15, 15, 15]  # Adjust the radius to make it rounded
-
+                ripple_behavior: True
+                background_color: 0, 0, 0, 0  # Make the button's background transparent
                 on_release: root.get_profile_info(text_input.text)

@@ -12,7 +12,7 @@ Window.size = (350, 600)
 import tweepy
 import re
 
-import config
+import config as config
 
 import instaloader
 import pandas as pd

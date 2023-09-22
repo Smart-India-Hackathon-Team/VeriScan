@@ -22,11 +22,12 @@
             height: dp(48)
             pos_hint: {"center_x": .5, "center_y": .3}
 
-            Button:
+            MDRaisedButton:
                 text: "Detect"
                 text_color: 1, 1, 1, 1
                 font_size: "20sp"
                 size_hint: 1, 1
+                ripple_behavior: True
                 background_color: 0, 0, 0, 0  # Make the button's background transparent
                 canvas.before:
                     Color:
