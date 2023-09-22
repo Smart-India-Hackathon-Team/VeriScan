@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
@@ -6,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import instaloader
 
-class Model():
+class ModelInstagram():
     def train_model(self):
         data = {}
         data['fake'] = pd.read_csv('Datasets/instagram_fake_users.csv')
@@ -65,6 +64,5 @@ class Model():
         except:
             return "Error"
 
-model = Model()
-print(model.ipredict("_onerandom_"))
-
+model = ModelInstagram()
+# print(model.ipredict("_onerandom_"))

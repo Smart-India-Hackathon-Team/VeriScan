@@ -18,6 +18,7 @@ import instaloader
 import pandas as pd
 
 from model_twitter import Model
+from model_instagram import ModelInstagram
 
 # Define your Twitter API credentials
 consumer_key = config.twitter_key
@@ -213,7 +214,6 @@ class InstagramScreen(Screen):
         self.manager.current = 'home'
 
 class Instagramresult(Screen):
-
     def on_pre_enter(self):
         instagram_screen = App.get_running_app().root.get_screen('instagram')  # Access InstagramScreen instance
         username = instagram_screen.username
@@ -235,6 +235,45 @@ class Instagramresult(Screen):
 
     def detect(self):
         pass
+
+
+class Instagramdetect(Screen):
+    def __init__(self, **kwargs):
+        super(Instagramdetect, self).__init__(**kwargs)
+        layout = BoxLayout(orientation='vertical')
+        self.result_label = Label(text="Result")
+
+        block_button = Button(text="Block", background_color=(1, 0, 0, 1))
+        block_button.bind(on_release=self.block)
+
+        back_button = Button(text="Back")
+        back_button.bind(on_release=self.bckBtn)
+
+        layout.add_widget(self.result_label)
+        layout.add_widget(block_button)
+        layout.add_widget(back_button)
+
+        self.add_widget(layout)
+
+    # DUMMY DATA - Have to replace it with ML Model
+    def on_pre_enter(self):
+        instagram_screen = App.get_running_app().root.get_screen('instagram')  # Access InstagramScreen instance
+
+        model_instance = ModelInstagram()
+        profile_info = App.get_running_app().profile_info
+        username = instagram_screen.username
+        prediction = model_instance.ipredict(username)
+
+        if prediction:
+            info_text = f"Prediction: {prediction}\n"
+            self.result_label.text = info_text
+
+    def bckBtn(self, instance):
+        self.manager.current = 'instagram_result'
+
+    def block(self, instance):
+        pass
+
 
 class LinkedInScreen(Screen):
     def __init__(self, **kwargs):
@@ -397,6 +436,7 @@ class MyApp(MDApp):
 
         sm.add_widget(InstagramScreen(name='instagram'))
         sm.add_widget(Instagramresult(name='instagram_result'))
+        sm.add_widget(Instagramdetect(name='instagram_detect'))
 
         sm.add_widget(LinkedInScreen(name='linkedin'))
         sm.add_widget(LinkedInResult(name='linkedin_result'))
