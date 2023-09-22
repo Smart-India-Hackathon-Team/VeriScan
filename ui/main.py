@@ -49,6 +49,8 @@ def get_user_details(username):
 Builder.load_file("home.kv")
 Builder.load_file("twitter.kv")
 Builder.load_file("twitterresult.kv")
+Builder.load_file("instagram.kv")
+Builder.load_file("instagramresult.kv")
 class HomeScreen(Screen):
     pass
 
@@ -65,22 +67,7 @@ class HomeScreen(Screen):
         self.manager.current = 'facebook'
 
 class TwitterScreen(Screen):
-    '''def __init__(self, **kwargs):
-        super(TwitterScreen, self).__init__(**kwargs)
-        layout = BoxLayout(orientation='vertical')
-        label = Label(text="Enter Twitter Profile URL:")
-        self.text_input = TextInput(hint_text="Enter URL here")
-        button = Button(text="Get Profile Info")
-        button.bind(on_release=self.get_profile_info)
-        back_button = Button(text="Back")
-        back_button.bind(on_release=self.bckBtn)  # Corrected binding here
-        layout.add_widget(label)
-        layout.add_widget(self.text_input)
-        layout.add_widget(button)
-        layout.add_widget(back_button)
-        self.add_widget(layout)'''
     
-
     def get_profile_info(self,twitter_url):
         # Extract the Twitter username from the URL
         username = extract_username_from_url(twitter_url)
@@ -197,7 +184,7 @@ class Twitterdetect(Screen):
             print(f"Error blocking user @{screen_name}: {e.reason}")
 
 class InstagramScreen(Screen):
-    def __init__(self, **kwargs):
+    '''def __init__(self, **kwargs):
         super(InstagramScreen, self).__init__(**kwargs)
         layout = BoxLayout(orientation='vertical')
         label = Label(text="Enter Instagram Profile URL:")
@@ -212,10 +199,9 @@ class InstagramScreen(Screen):
         layout.add_widget(back_button)
         self.add_widget(layout)
 
-        self.username = None
-
-    def get_profile_info(self, instance):
-        instagram_url = self.text_input.text
+        self.username = None'''
+    
+    def get_profile_info(self, instagram_url):
         print(instagram_url)
         # Extract the Instagram username from the URL
         pattern = r'https://www\.instagram\.com/([A-Za-z0-9_]+)'
@@ -226,29 +212,13 @@ class InstagramScreen(Screen):
     def bckBtn(self, instance):
         self.manager.current = 'home'
 
-class InstagramResult(Screen):
-    def __init__(self, **kwargs):
-        super(InstagramResult, self).__init__(**kwargs)
-        layout = BoxLayout(orientation='vertical')
-        self.result_label = Label(text="Instagram Profile Info")
-
-        detect_button = Button(text="Detect")
-        detect_button.bind(on_release=self.detect)
-
-        back_button = Button(text="Back")
-        back_button.bind(on_release=self.bckBtn)
-
-        layout.add_widget(self.result_label)
-        layout.add_widget(detect_button)
-        layout.add_widget(back_button)
-
-        self.add_widget(layout)
+class Instagramresult(Screen):
 
     def on_pre_enter(self):
         instagram_screen = App.get_running_app().root.get_screen('instagram')  # Access InstagramScreen instance
         username = instagram_screen.username
         profile = instaloader.Profile.from_username(bot.context, username)
-
+        print(profile)
         if profile:
             info_text = f"Name: {profile.username}\n"
             info_text += f"Username: {profile.username}\n"
@@ -258,12 +228,12 @@ class InstagramResult(Screen):
             info_text += f"Bio: {profile.biography}\n"
             info_text += f"External Url: {profile.external_url}\n"
 
-            self.result_label.text = info_text
+            self.ids.result_label.text = info_text
 
-    def bckBtn(self, instance):
+    def bckBtn(self):
         self.manager.current = 'instagram'
 
-    def detect(self, instance):
+    def detect(self):
         pass
 
 class LinkedInScreen(Screen):
@@ -426,7 +396,7 @@ class MyApp(MDApp):
         sm.add_widget(Twitterdetect(name='twitter_detect'))
 
         sm.add_widget(InstagramScreen(name='instagram'))
-        sm.add_widget(InstagramResult(name='instagram_result'))
+        sm.add_widget(Instagramresult(name='instagram_result'))
 
         sm.add_widget(LinkedInScreen(name='linkedin'))
         sm.add_widget(LinkedInResult(name='linkedin_result'))
