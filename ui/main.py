@@ -52,6 +52,8 @@ Builder.load_file("twitter.kv")
 Builder.load_file("twitterresult.kv")
 Builder.load_file("instagram.kv")
 Builder.load_file("instagramresult.kv")
+Builder.load_file("twitterdetect.kv")
+Builder.load_file("instagramdetect.kv")
 class HomeScreen(Screen):
     pass
 
@@ -80,6 +82,7 @@ class TwitterScreen(Screen):
                 MyApp.profile_info = user_details
                 # Switch to the second screen
                 self.manager.current = 'twitter_result'
+
             else:
                 print("Error: Failed to retrieve user details")
         else:
@@ -119,7 +122,7 @@ class Twitterresult(Screen):
         self.manager.current = 'twitter_detect'
 
 class Twitterdetect(Screen):
-    def __init__(self, **kwargs):
+    '''def __init__(self, **kwargs):
         super(Twitterdetect, self).__init__(**kwargs)
         layout = BoxLayout(orientation='vertical')
         self.result_label = Label(text="Result")
@@ -134,7 +137,7 @@ class Twitterdetect(Screen):
         layout.add_widget(block_button)
         layout.add_widget(back_button)
 
-        self.add_widget(layout)
+        self.add_widget(layout)'''
 
     # DUMMY DATA - Have to replace it with ML Model
     def on_pre_enter(self):
@@ -146,7 +149,7 @@ class Twitterdetect(Screen):
 
         if prediction:
             info_text = f"Prediction: {prediction}\n"
-            self.result_label.text = info_text
+            self.ids.result_label.text = info_text
 
         # print(f"Prediction for {username}: {prediction}")
 
@@ -234,11 +237,11 @@ class Instagramresult(Screen):
         self.manager.current = 'instagram'
 
     def detect(self):
-        pass
+        self.manager.current = 'instagram_detect'
 
 
 class Instagramdetect(Screen):
-    def __init__(self, **kwargs):
+    '''def __init__(self, **kwargs):
         super(Instagramdetect, self).__init__(**kwargs)
         layout = BoxLayout(orientation='vertical')
         self.result_label = Label(text="Result")
@@ -253,27 +256,26 @@ class Instagramdetect(Screen):
         layout.add_widget(block_button)
         layout.add_widget(back_button)
 
-        self.add_widget(layout)
+        self.add_widget(layout)'''
 
     # DUMMY DATA - Have to replace it with ML Model
     def on_pre_enter(self):
+        print("test")
         instagram_screen = App.get_running_app().root.get_screen('instagram')  # Access InstagramScreen instance
 
         model_instance = ModelInstagram()
-        profile_info = App.get_running_app().profile_info
         username = instagram_screen.username
         prediction = model_instance.ipredict(username)
 
         if prediction:
             info_text = f"Prediction: {prediction}\n"
-            self.result_label.text = info_text
+            self.ids.result_label.text = info_text
 
-    def bckBtn(self, instance):
+    def bckBtn(self):
         self.manager.current = 'instagram_result'
 
-    def block(self, instance):
+    def block(self):
         pass
-
 
 class LinkedInScreen(Screen):
     def __init__(self, **kwargs):
@@ -443,8 +445,6 @@ class MyApp(MDApp):
 
         sm.add_widget(FacebookScreen(name='facebook'))
         sm.add_widget(FacebookResult(name='facebook_result'))
-        Builder.load_file("home.kv")
-        Builder.load_file("twitter.kv")
         return sm
 
 if __name__ == '__main__':

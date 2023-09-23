@@ -1,4 +1,4 @@
-<TwitterResult>:
+<Twitterdetect>:
     MDFloatLayout:
         canvas.before:
             Color:
@@ -7,20 +7,15 @@
                 pos: self.pos
                 size: self.size
 
-        MDIconButton:
-            icon: "arrow-left"  # You can change this to the icon you prefer
-            pos_hint: {"x": 0.02, "top": 0.98}  # Adjust the position for the home button
-            on_release: root.bckBtn()  # Switch to the 'home' screen when clicked
-
         MDLabel:
-            text: "Profile Information"
-            pos_hint:{"center_x":.5,"center_y":0.7}
-            font_size: "20sp"
-            bold:True
-            halign:"center"
+            text: 'Result'
+            pos_hint: {"center_x": .5, "center_y": .7}
+            font_size: "30sp"
+            bold: True
+            halign: "center"
         MDLabel:
-            id: result_label  # Add an id to the Label widget
-            pos_hint:{"center_x":.5,"center_y":0.5}
+            id:result_label
+            pos_hint:{"center_x":.5,"center_y":.5}
             halign:"center"
         RelativeLayout:
             size_hint: 0.8, None
@@ -28,17 +23,16 @@
             pos_hint: {"center_x": .5, "center_y": .3}
 
             MDRaisedButton:
-
-                text: "Detect"
+                
+                text: "Block"
                 text_color: 1, 1, 1, 1
                 font_size: "20sp"
                 size_hint: 1, 1
                 ripple_behavior: True
                 on_release: root.detect()  # Call the 'detect' method when clicked
-                background_color: 0, 0, 0, 0  # Make the button's background transparent
+                background_color: 1,0,0,1  # Make the button's background transparent
+                md_bg_color: [1,0,0,1]
                 canvas.before:
-                    Color:
-                        rgba: 0, 0, 0, 1
                     RoundedRectangle:
                         size: self.size
                         pos: self.pos
