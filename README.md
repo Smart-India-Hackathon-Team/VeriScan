@@ -6,7 +6,6 @@ VeriScan is a Python-based mobile application developed during the SIH Hackathon
 
 - [Introduction](#veriscan---social-media-user-authenticity-checker)
 - [Features](#features)
-- [Screenshot](#screenshot)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Machine Learning Model](#machine-learning-model)
@@ -20,17 +19,6 @@ VeriScan is a Python-based mobile application developed during the SIH Hackathon
 - Quick and efficient results.
 - Fast and easy installation.
 
-## Screenshot
-
-<details>
-  <summary>Click to expand</summary>
-  
-  <p align="left">
-    <img src="Media/preview.png" alt="preview" width="500">
-  </p>
-
-</details>
-
 ## Installation
 
 To install VeriScan on your mobile device, follow these steps:
@@ -38,7 +26,6 @@ To install VeriScan on your mobile device, follow these steps:
 1. Clone this GitHub repository:
    ```
    git clone https://github.com/Smart-India-Hackathon-Team/VeriScan
-
    ```
 
 2. Install the required Python packages using pip:
