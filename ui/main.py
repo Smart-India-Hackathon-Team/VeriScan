@@ -213,7 +213,7 @@ class InstagramScreen(Screen):
         self.username = match.group(1)
         self.manager.current = 'instagram_result'
 
-    def bckBtn(self, instance):
+    def bckBtn(self):
         self.manager.current = 'home'
 
 class Instagramresult(Screen):

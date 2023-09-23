@@ -22,6 +22,8 @@
             id:result_label
             pos_hint:{"center_x":.5,"center_y":.5}
             halign:"center"
+            theme_text_color:"Custom"
+            text_color:(0,1,0,1) if result_label.text == "Prediction: Real\n" else (1,0,0,1)
         RelativeLayout:
             size_hint: 0.8, None
             height: dp(48)
@@ -31,6 +33,10 @@
                 
                 text: "Block"
                 text_color: 1, 1, 1, 1
+
+
+
+
                 font_size: "20sp"
                 size_hint: 1, 1
                 ripple_behavior: True
@@ -42,3 +48,4 @@
                         size: self.size
                         pos: self.pos
                         radius: [15, 15, 15, 15]  # Adjust the radius to make it rounded
+                opacity: 1 if result_label.text == "Prediction: Fake\n" else 0
