@@ -208,7 +208,7 @@ class InstagramScreen(Screen):
     def get_profile_info(self, instagram_url):
         print(instagram_url)
         # Extract the Instagram username from the URL
-        pattern = r'https://www\.instagram\.com/([A-Za-z0-9_]+)'
+        pattern = r'https://www\.instagram\.com/([A-Za-z0-9_\.]+)'
         match = re.search(pattern, instagram_url)
         self.username = match.group(1)
         self.manager.current = 'instagram_result'
