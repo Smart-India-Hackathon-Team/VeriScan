@@ -64,4 +64,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <hr>
 
-Developed by [Ananta, Arnav, Siddarth, Alviya, Tushita] for the SIH Hackathon 2023.
+Developed by [Ananta, Arnav, Alviya, Karan, Siddarth, Tushita] for the SIH Hackathon 2023.
