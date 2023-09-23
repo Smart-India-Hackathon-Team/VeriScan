@@ -22,14 +22,10 @@ VeriScan is a Python-based mobile application developed during the SIH Hackathon
 
 ## Screenshot
 
-<details>
-  <summary>Click to expand</summary>
-  
-  <p align="left">
-    <img src="media/preview.png" alt="Keyword Mode Screenshot" width="500">
-  </p>
+<p align="left">
+    <img src="media/preview.png" alt="preview" width="500">
+</p>
 
-</details>
 
 ## Installation
 
