@@ -445,6 +445,7 @@ class MyApp(MDApp):
 
         sm.add_widget(FacebookScreen(name='facebook'))
         sm.add_widget(FacebookResult(name='facebook_result'))
+        
         return sm
 
 if __name__ == '__main__':

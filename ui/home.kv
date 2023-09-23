@@ -14,16 +14,27 @@
                 orientation:'vertical'
 
                 MDLabel:
-                    text: "Social Media Fake Profile Detection"
-                    font_size: '24sp'
+                    text: "VeriScan"
+                    font_size: '30sp'
                     bold: True
                     spacing:dp(25)
+                    halign:"center"
+                    theme_text_color: "Custom"
+                    text_color:0.53, 0.81, 0.92, 1  # Set the text color to a shade of purple
+                MDLabel:
+                    text: "Fake Social Media Profile Detector"
+                    font_size: '16sp'
+                    bold: True
+                    spacing:dp(25)
+                    halign:"center"
                 MDBoxLayout:
                     MDLabel:
+                        pos_hint:{'center_x': .5, 'center_y': .1}
                         text: "Select a Social Media Platform:"
                         font_size:'18sp'
                         size_hint_y: None
-                        height: dp(48)  # Adjust height using dp
+                        height: dp(50)  # Adjust height using dp
+                        halign:"center"
 
         MDGridLayout:
             size_hint_y:.75
@@ -31,6 +42,7 @@
             padding:[dp(15),dp(15),dp(15),dp(35)]
             spacing:dp(15)
             MDCard:
+                md_bg_color:69/255,55/255,86/255,1
                 on_release:root.open_twitter_screen()
                 padding: dp(15)
                 spacing: dp(15)
@@ -51,6 +63,7 @@
 
             MDCard:
                 on_release:root.open_instagram_screen()
+                md_bg_color:69/255,55/255,86/255,1
                 padding: dp(15)
                 spacing: dp(15)
                 radius: dp(25)
@@ -71,6 +84,7 @@
             
             MDCard:
                 on_release:root.open_facebook_screen()
+                md_bg_color:69/255,55/255,86/255,1
                 padding: dp(15)
                 spacing: dp(15)
                 radius: dp(25)
@@ -90,6 +104,7 @@
 
 
             MDCard:
+                md_bg_color:69/255,55/255,86/255,1
                 padding: dp(15)
                 spacing: dp(15)
                 radius: dp(25)

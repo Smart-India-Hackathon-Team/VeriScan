@@ -8,9 +8,9 @@
                 size: self.size
 
         MDIconButton:
-            icon: "home"  # You can change this to the icon you prefer
+            icon: "arrow-left"  # You can change this to the icon you prefer
             pos_hint: {"x": 0.02, "top": 0.98}  # Adjust the position for the home button
-            on_release: root.manager.current = 'home'  # Switch to the 'home' screen when clicked
+            on_release: root.bckBtn()  # Switch to the 'home' screen when clicked
 
         Image:
             size_hint_x:0.4
