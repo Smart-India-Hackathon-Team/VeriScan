@@ -213,7 +213,7 @@ class InstagramScreen(Screen):
         self.username = match.group(1)
         self.manager.current = 'instagram_result'
 
-    def bckBtn(self, instance):
+    def bckBtn(self):
         self.manager.current = 'home'
 
 class Instagramresult(Screen):
@@ -445,6 +445,7 @@ class MyApp(MDApp):
 
         sm.add_widget(FacebookScreen(name='facebook'))
         sm.add_widget(FacebookResult(name='facebook_result'))
+        
         return sm
 
 if __name__ == '__main__':
