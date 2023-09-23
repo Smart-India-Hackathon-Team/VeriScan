@@ -60,7 +60,7 @@ class ModelInstagram():
             nans = np.isnan(x)
             x[nans] = 0
             y = model.predict(x)
-            return "Real" if y[0] else "Fake"
+            return "Real" if y[0] == 1 else "Fake"
         except:
             return "Error"
 
