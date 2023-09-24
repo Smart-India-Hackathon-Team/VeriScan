@@ -65,4 +65,3 @@ class ModelInstagram():
             return "Error"
 
 model = ModelInstagram()
-# print(model.ipredict("_onerandom_"))

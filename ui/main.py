@@ -151,8 +151,6 @@ class Twitterdetect(Screen):
             info_text = f"Prediction: {prediction}\n"
             self.ids.result_label.text = info_text
 
-        # print(f"Prediction for {username}: {prediction}")
-
         # if profile_info:
         #     # Extract and display important information
         #     user_name = profile_info.get('name', '')
