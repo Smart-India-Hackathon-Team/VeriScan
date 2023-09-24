@@ -62,6 +62,4 @@ class ModelInstagram():
             y = model.predict(x)
             return "Real" if y[0] == 1 else "Fake"
         except:
-            return "Error"
-
-model = ModelInstagram()
+            return False

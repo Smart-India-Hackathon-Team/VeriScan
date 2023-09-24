@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 import tweepy
 
-class Model():
+class ModelTwitter():
     def train_model(self):
         data = {}
         data['fake'] = pd.read_csv('Datasets/twitter_fake_users.csv')
@@ -80,5 +80,5 @@ class Model():
             return "Real" if y[0] == 1 else "Fake"
 
         except:
-            return "Error"
+            return False
 

@@ -17,7 +17,7 @@ import config as config
 import instaloader
 import pandas as pd
 
-from model_twitter import Model
+from model_twitter import ModelTwitter
 from model_instagram import ModelInstagram
 
 # Define your Twitter API credentials
@@ -142,7 +142,7 @@ class Twitterdetect(Screen):
     # DUMMY DATA - Have to replace it with ML Model
     def on_pre_enter(self):
 
-        model_instance = Model()
+        model_instance = ModelTwitter()
         profile_info = App.get_running_app().profile_info
         username = profile_info.get('screen_name', '')
         prediction = model_instance.tpredict(username)
